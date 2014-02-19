@@ -17,10 +17,12 @@ public:
 	void dealVisibleCard(Card card) { visibleCards.push_back(card); }
 
 	vector<Card> collectCards(vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
+	int getHandValue(); // needs
+	int getVisibleHandValue();
 private:
 
 	short id; // may be optional: should match the index in vector array
-
+	string name;
 	vector<Card>visibleCards;
 	Card hiddenCard;	
 };
