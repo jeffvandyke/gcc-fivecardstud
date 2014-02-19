@@ -13,7 +13,7 @@ using namespace std;
 
 class FiveCardStud
 {
-	const PLAYER_STARTING_BANK = 100;
+	static const int PLAYER_STARTING_BANK = 100;
 public:
 	FiveCardStud();
 	~FiveCardStud();

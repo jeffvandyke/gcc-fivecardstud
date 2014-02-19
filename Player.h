@@ -19,6 +19,7 @@ public:
 	vector<Card> collectCards(vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
 private:
 
+	short id; // may be optional: should match the index in vector array
 
 	vector<Card>visibleCards;
 	Card hiddenCard;	

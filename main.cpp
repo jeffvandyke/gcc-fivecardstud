@@ -1,3 +1,5 @@
+// DONE
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,6 +18,7 @@ int main() {
 	do {
 		cout << "Enter number of players!" << endl;
 		cin >> numberOfPlayers;
+
 		game.setup(numberOfPlayers);
 		game.play();
 		game.packUp();

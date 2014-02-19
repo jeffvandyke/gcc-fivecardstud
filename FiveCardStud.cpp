@@ -12,21 +12,27 @@ FiveCardStud::~FiveCardStud(void) {
 }
 
 void FiveCardStud::setup(short nPlayers){
-	
+	players.clear();
+	for(int i = 0; i < nPlayers; i++) {
+
+	}
 }
 
 void FiveCardStud::play() {
 
 }
 
+void FiveCardStud::packUp() {
+
+}
+
+// private:
+
 void FiveCardStud::playRound() {
 
 }
 
 void FiveCardStud::performBetting() {
-
-}
-
-void FiveCardStud::packUp() {
+	// betting starts with the person with the highest visible card / hand goes first
 
 }
