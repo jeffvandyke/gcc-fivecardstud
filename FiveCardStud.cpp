@@ -29,7 +29,9 @@ void FiveCardStud::packUp() {
 // private:
 
 void FiveCardStud::playRound() {
+	while(){
 
+	}
 }
 
 void FiveCardStud::performBetting() {
