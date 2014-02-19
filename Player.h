@@ -16,7 +16,7 @@ public:
 	void dealHiddenCard(Card card) { hiddenCard = card; }
 	void dealVisibleCard(Card card) { visibleCards.push_back(card); }
 
-	vector<Card> collectCards(vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
+	void collectCards(vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
 	int getHandValue(); // needs
 	int getVisibleHandValue();
 private:
