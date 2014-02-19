@@ -1,5 +1,5 @@
 #include "FiveCardStud.h"
-
+#include <vector>
 
 
 FiveCardStud::FiveCardStud(void) {
@@ -15,7 +15,7 @@ void FiveCardStud::setup(short nPlayers){
 	players.clear();
 	for(int i = 0; i < nPlayers; i++) {
 		Player player;
-		players.push_end(player)
+		
 	}
 }
 
@@ -30,8 +30,10 @@ void FiveCardStud::packUp() {
 // private:
 
 void FiveCardStud::playRound() {
-	while(){
+	if(!(players.size() == 0){
+		while(players[0].){
 
+		}
 	}
 }
 

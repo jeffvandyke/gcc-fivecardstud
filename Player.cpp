@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <vector>
+
 using namespace std;
 
 Player::Player(void)
@@ -11,5 +13,10 @@ Player::~Player(void)
 {
 }
 
-vector<Card> Player::collectCards(){
+void Player::collectCards(vector<Card> &deck){
+	for(int i; i < visibleCards.size(); i++){
+		deck.push_back(visibleCards[i]);
+	}
+	visibleCards.clear();
+	deck.push_back(hiddenCard);
 }
