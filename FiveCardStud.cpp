@@ -14,7 +14,8 @@ FiveCardStud::~FiveCardStud(void) {
 void FiveCardStud::setup(short nPlayers){
 	players.clear();
 	for(int i = 0; i < nPlayers; i++) {
-
+		Player player;
+		players.push_end(player)
 	}
 }
 
