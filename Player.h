@@ -24,6 +24,7 @@ private:
 
 	short id; // may be optional: should match the index in vector array
 	string name;
+	int bank;
 	vector<Card>visibleCards;
 	Card hiddenCard;	
 };
