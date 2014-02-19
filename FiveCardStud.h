@@ -30,7 +30,6 @@ private:
 	void addPot(int value) { pot += value * 100; }
 
 	//ui functions
-	int ui_getPlayerBet(short playerId); // calls 'ui_showPlayerView
 	void ui_showPlayerView(short playerId); // make sure you clear the screen and wait for 'ENTER' before showing a player's view!
 	void ui_showWinner(short playerId);
 
