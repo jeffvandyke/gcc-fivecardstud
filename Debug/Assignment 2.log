@@ -1,0 +1,15 @@
+﻿Build started 2/19/2014 10:06:28 AM.
+     1>Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\Assignment 2\Assignment 2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FiveCardStud.cpp Player.cpp UserInterface.cpp main.cpp
+         main.cpp
+         UserInterface.cpp
+     1>c:\users\vandykejd1\documents\code\comp 220\assignment 2\userinterface.cpp(10): error C2600: 'UserInterface::~UserInterface' : cannot define a compiler-generated special member function (must be declared in the class first)
+         Player.cpp
+         FiveCardStud.cpp
+         Generating Code...
+     1>Done Building Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\Assignment 2\Assignment 2.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:02.48
