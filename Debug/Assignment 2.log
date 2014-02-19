@@ -1,15 +1,18 @@
-﻿Build started 2/19/2014 10:06:28 AM.
-     1>Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\Assignment 2\Assignment 2.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2/19/2014 2:37:08 PM.
+     1>Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Assignment 2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FiveCardStud.cpp Player.cpp UserInterface.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FiveCardStud.cpp main.cpp
          main.cpp
-         UserInterface.cpp
-     1>c:\users\vandykejd1\documents\code\comp 220\assignment 2\userinterface.cpp(10): error C2600: 'UserInterface::~UserInterface' : cannot define a compiler-generated special member function (must be declared in the class first)
-         Player.cpp
          FiveCardStud.cpp
          Generating Code...
-     1>Done Building Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\Assignment 2\Assignment 2.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Debug\Assignment 2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Debug\Assignment 2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Debug\Assignment 2.lib" /MACHINE:X86 Debug\Card.obj
+         Debug\FiveCardStud.obj
+         Debug\main.obj
+         Debug\Player.obj
+         Assignment 2.vcxproj -> C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Debug\Assignment 2.exe
+     1>Done Building Project "C:\Users\VanDykeJD1\Documents\Code\Comp 220\gcc-fivecardstud\Assignment 2.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:02.48
+Time Elapsed 00:00:01.57
