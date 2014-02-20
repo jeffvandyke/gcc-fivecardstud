@@ -1,5 +1,6 @@
 #include "FiveCardStud.h"
 #include "Player.h"
+#include <cmath>
 
 
 FiveCardStud::FiveCardStud(void) {
@@ -57,8 +58,21 @@ void FiveCardStud::play() {
 	} while (players.size() > 1);
 }
 
+// DONE
 void FiveCardStud::packUp() {
+	for (int i = 0; i < static_cast<int>(players.size()); i++) {
+		players[i].collectCards(deck);
+	}
+}
 
+// DONE
+int FiveCardStud::nPlayersBetting() { 
+	int nBetting = 0;
+	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
+		if (players[i].isBetting())
+			nBetting++;
+	}
+	return nBetting;
 }
 
 // private:
@@ -66,7 +80,7 @@ void FiveCardStud::packUp() {
 void FiveCardStud::playRound() {
 	
 	//deal cards
-	while(players[0].cardsCount() < 5){ // don't deal
+	while(players[0].cardsCount() < 5 && nPlayersBetting() > 1){
 
 		//if first time...
 		if(players[0].cardsCount() == 0) {
@@ -85,29 +99,67 @@ void FiveCardStud::playRound() {
 		for(int i = 0; i < static_cast<int>(players.size()); i++) {
 			Player& player = players[i]; // this player
 			// deal round of visible cards
-			Card card = deck.back();
-			deck.pop_back();
+			if( player.isBetting() ) {
+				Card card = deck.back();
+				deck.pop_back();
 				
-			player.dealVisibleCard(card);
+				player.dealVisibleCard(card);
+			}
 				
 		}
+
+		performBetting();
+		
 	}
+
+	// round is over, clean up and prepare for the next round
+
+	rewardRoundWinner();
+
+	// collect each player's cards
+	for(int i = 0; i < static_cast<int>(players.size()); i++) {
+		players[i].collectCards(deck);
+	}
+
 }
+
 
 void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
-	// only allow betting for players that have not checked
+	// only allow betting for players that have not folded
+	// players have to bet at least the "round bet"
 
 }
 
-void FiveCardStud::shuffleDeck() {
+// DONE
+void FiveCardStud::rewardRoundWinner() {
 
+	// find the winner
+
+	Player* winner = &players[0];
+	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
+		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
+			|| winner->hasFolded()
+			) && !players[i].hasFolded() ) // winner hasn't folded
+		{
+			winner = &players[i];
+		}
+	}
+
+	// give the player the pot
+	winner->addBank(pot);
+	pot = 0;
+}
+
+
+void FiveCardStud::shuffleDeck() {
+	
 }
 
 // ui functions
 
 void FiveCardStud::ui_renderPlayerView(int playerId) {
-
+	
 }
 
 
