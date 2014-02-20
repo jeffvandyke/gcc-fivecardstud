@@ -9,11 +9,11 @@
 #include <string>
 #include <math.h>
 
-using namespace std;
 
 class FiveCardStud
 {
 	static const int PLAYER_STARTING_BANK = 100;
+	static const int ante = 1;
 public:
 	FiveCardStud();
 	~FiveCardStud();
@@ -38,10 +38,10 @@ private:
 
 
 
-	vector<Player> players;
+	std::vector<Player> players;
 	int dealerId; // contains the index for the player
 	//UserInterface ui;
-	vector<Card> deck;
+	std::vector<Card> deck;
 	int pot;
 };
 

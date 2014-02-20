@@ -46,7 +46,15 @@ void FiveCardStud::setup(int nPlayers){
 
 void FiveCardStud::play() {
 	// game ends when all players are broke, players are removed on becoming broke 
-	playRound();
+	do {
+		playRound();
+
+		// remove broke players
+		for(int i = static_cast<int>(players.size()) - 1; i >= 0 ; i--) { // work backwards to avoid indexing issues
+			if( players[i].isBroke() )
+				players.erase(players.begin() + i);
+		}
+	} while (players.size() > 1);
 }
 
 void FiveCardStud::packUp() {
@@ -56,40 +64,39 @@ void FiveCardStud::packUp() {
 // private:
 
 void FiveCardStud::playRound() {
+	
 	//deal cards
-	if(!(players.size() == 0)){
-		while(players[0].cardsCount() < 5){ // don't deal
+	while(players[0].cardsCount() < 5){ // don't deal
 
-			//if first time...
-			if(players[0].cardsCount() == 0) {
-				// ... deal a round of hidden cards
-				for(int i = 0; i < static_cast<int>(players.size()); i++) {
-				
-					Player& player = players[i]; // this player
-					Card card = deck.back();
-					deck.pop_back();
-
-					player.dealHiddenCard(card);
-				}
-
-			}
-
+		//if first time...
+		if(players[0].cardsCount() == 0) {
+			// ... deal a round of hidden cards
 			for(int i = 0; i < static_cast<int>(players.size()); i++) {
+				
 				Player& player = players[i]; // this player
-				// deal round of visible cards
 				Card card = deck.back();
 				deck.pop_back();
-				
-				player.dealVisibleCard(card);
-				
+
+				player.dealHiddenCard(card);
 			}
+
+		}
+
+		for(int i = 0; i < static_cast<int>(players.size()); i++) {
+			Player& player = players[i]; // this player
+			// deal round of visible cards
+			Card card = deck.back();
+			deck.pop_back();
+				
+			player.dealVisibleCard(card);
+				
 		}
 	}
 }
 
 void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
-	// only allow betting for players that 
+	// only allow betting for players that have not checked
 
 }
 

@@ -20,21 +20,28 @@ Player::~Player(void)
 }
 
 void Player::collectCards(vector<Card> &deck){
-	for(int i = 0; i < visibleCardsCount; i++){
-		deck.push_back(visibleCards[i]);
-	}
+	if( visibleCardsCount > 0 ) {
+		for(int i = 0; i < visibleCardsCount; i++){
+			deck.push_back(visibleCards[i]);
+		}
 
-	visibleCardsCount = 0;
-	deck.push_back(hiddenCard);
+		visibleCardsCount = 0;
+		deck.push_back(hiddenCard);
+	}
 }
 
 
 int Player::getHandValue() { // returns the value of the complete 5 card set 
+
+
 	return 0;
 }
 
 
-int Player::getVisibleHandValue() { // evaluates who starts betting by looking at the set of 4 or less cards to find 
+int Player::getVisibleHandValue() { // evaluates who starts betting by looking at the set of 4 or less cards to find value
+	
+
+
 	return 0;
 }
 

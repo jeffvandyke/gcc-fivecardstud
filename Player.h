@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
 
 class Player
 {
@@ -26,7 +25,7 @@ public:
 	
 	// implementable
 
-	void collectCards(vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
+	void collectCards(std::vector<Card> &deck); //empties out the visible cards vector and puts them back in the deck vector
 	int getHandValue(); // returns the value of the complete 5 card set 
 	int getVisibleHandValue(); // evaluates who starts betting by looking at the set of 4 or less cards to find 
 
@@ -38,7 +37,7 @@ private:
 
 
 	int id; // may be optional: should match the index in vector array
-	string name;
+	std::string name;
 	bool checked;
 	int bank;
 	Card visibleCards[4]; // fixed-size array allows vector to allocate "Player" correctly
