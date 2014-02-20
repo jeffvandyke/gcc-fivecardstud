@@ -18,7 +18,7 @@ public:
 	FiveCardStud();
 	~FiveCardStud();
 	
-	void setup(short nPlayers); //initiates a game with the set number of players
+	void setup(int nPlayers); //initiates a game with the set number of players
 	void play(); // plays multiple rounds until someone runs out of money
 	void packUp(); // after a game has finished
 private:
@@ -33,14 +33,13 @@ private:
 	void shuffleDeck();
 
 	// ui functions
-	void ui_renderPlayerView(short playerId); // make sure you clear the screen and wait for 'ENTER' before showing a player's view!
-	void ui_clearScreen();
-	void ui_showWinner(short playerId);
+	void ui_renderPlayerView(int playerId); // renders complete game view as it appears to player, clears screen and prompts for input
+	void ui_showWinner(int playerId);
 
 
 
 	vector<Player> players;
-	short dealerId; // contains the index for the player
+	int dealerId; // contains the index for the player
 	//UserInterface ui;
 	vector<Card> deck;
 	int pot;

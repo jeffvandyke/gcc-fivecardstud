@@ -11,9 +11,10 @@ FiveCardStud::~FiveCardStud(void) {
 
 }
 
-void FiveCardStud::setup(short nPlayers){
+void FiveCardStud::setup(int nPlayers){
 
 	players.clear();
+	players.reserve(nPlayers);
 	for(int i = 0; i < nPlayers; i++) {
 		Player player;
 
@@ -55,7 +56,6 @@ void FiveCardStud::packUp() {
 // private:
 
 void FiveCardStud::playRound() {
-
 	//deal cards
 	if(!(players.size() == 0)){
 		while(players[0].cardsCount() < 5){ // don't deal
@@ -99,16 +99,11 @@ void FiveCardStud::shuffleDeck() {
 
 // ui functions
 
-void FiveCardStud::ui_renderPlayerView(short playerId) {
+void FiveCardStud::ui_renderPlayerView(int playerId) {
 
 }
 
 
-void FiveCardStud::ui_clearScreen(){
-
-}
-
-
-void FiveCardStud::ui_showWinner(short playerId){
+void FiveCardStud::ui_showWinner(int playerId){
 
 }

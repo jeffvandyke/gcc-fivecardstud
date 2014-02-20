@@ -15,14 +15,14 @@ public:
 	~Player(void);
 
 	void setId(short value) { id = value; }
-	short getId() { return id; }
+	int getId() { return id; }
 	bool isBetting() { return !(checked); }
 	void setBank(int value) { bank = value; }
 	bool isBroke() { return bank == 0; }
 
-	int cardsCount() { return (visibleCards.size() > 0) ? visibleCards.size() + 1 : 0; }
+	int cardsCount() { return (visibleCardsCount > 0) ? visibleCardsCount + 1 : 0; }
 	void dealHiddenCard(Card card) { hiddenCard = card; }
-	void dealVisibleCard(Card card) { visibleCards.push_back(card); }
+	void dealVisibleCard(Card card) { visibleCards[visibleCardsCount++] = card; }
 	
 	// implementable
 
@@ -37,11 +37,12 @@ public:
 private:
 
 
-	short id; // may be optional: should match the index in vector array
+	int id; // may be optional: should match the index in vector array
 	string name;
 	bool checked;
 	int bank;
-	vector<Card>visibleCards;
+	Card visibleCards[4]; // fixed-size array allows vector to allocate "Player" correctly
+	int visibleCardsCount;
 	Card hiddenCard;	
 };
 
