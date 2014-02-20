@@ -14,5 +14,6 @@
 
 *.suo
 *.opensdf
+*.sdf
 Debug*/
 Release*/
