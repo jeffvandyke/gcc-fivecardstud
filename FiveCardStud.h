@@ -22,15 +22,19 @@ public:
 	void play(); // plays multiple rounds until someone runs out of money
 	void packUp(); // after a game has finished
 private:
-	void playRound(); // runs many times per game, one winner per round, goes through a few betting rounds
-	void performBetting(); // asks for a round of bets, starting from the dealer's left (or next in vector array, first if dealer is last), adding to the pot from player's banks
-
 	int getPot() { return pot; } // dollars
 	void emptyPot() { pot = 0; }
 	void addPot(int value) { pot += value * 100; }
 
-	//ui functions
-	void ui_showPlayerView(short playerId); // make sure you clear the screen and wait for 'ENTER' before showing a player's view!
+	// implementable
+	void playRound(); // runs many times per game, one winner per round, goes through a few betting rounds
+	void performBetting(); // asks for a round of bets, starting from the dealer's left (or next in vector array, first if dealer is last), adding to the pot from player's banks
+
+	void shuffleDeck();
+
+	// ui functions
+	void ui_renderPlayerView(short playerId); // make sure you clear the screen and wait for 'ENTER' before showing a player's view!
+	void ui_clearScreen();
 	void ui_showWinner(short playerId);
 
 
