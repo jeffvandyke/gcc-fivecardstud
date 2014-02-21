@@ -14,18 +14,25 @@ public:
 	~Player(void);
 
 	void startRound() { folded = false; }
-	void setId(short value) { id = value; }
+	void setId(int value) { id = value; }
 	int getId() { return id; }
+	std::string getName() {return name; }
+	void setName(std::string value) { name = value; }
 	bool isBetting() { return !(folded); }
 	bool hasFolded() { return (folded); }
 	void setBank(int value) { bank = value; }
 	void addBank(int value) { bank += value; }
+	void subtractBank(int value) { 
+		if (value < bank) {
+			bank -= value; 
+		} else { bank = 0; } 
+	}
 	bool isBroke() { return bank == 0; }
 
 	int cardsCount() { return (visibleCardsCount > 0) ? visibleCardsCount + 1 : 0; }
 	void dealHiddenCard(Card card) { hiddenCard = card; }
 	void dealVisibleCard(Card card) { visibleCards[visibleCardsCount++] = card; }
-	
+
 	// implementable
 
 	void collectCards(std::vector<Card> &deck); 

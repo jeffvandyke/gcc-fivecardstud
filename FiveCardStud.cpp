@@ -21,6 +21,7 @@ void FiveCardStud::setup(int nPlayers){
 
 		// prepare the character
 		player.setId(i);
+		player.setName("Player " + std::to_string(i));
 		
 		// TODO: change after implementation
 		// player.ui_requestName();   
@@ -55,6 +56,12 @@ void FiveCardStud::play() {
 			if( players[i].isBroke() )
 				players.erase(players.begin() + i);
 		}
+		// reindex after erasure
+
+		for (int i = 0; i < static_cast<int>(players.size()); i++) {
+			players[i].setId(i);
+		}
+
 	} while (players.size() > 1);
 }
 
@@ -78,11 +85,15 @@ int FiveCardStud::nPlayersBetting() {
 // private:
 
 void FiveCardStud::playRound() {
-	
-	//deal cards
+
+	// initialize round
+	roundBet = 0;
+	minRaise = 0;
+
+	// for each round that we need to deal cards for up to 5 cards... (at least two people still in the round)
 	while(players[0].cardsCount() < 5 && nPlayersBetting() > 1){
 
-		//if first time...
+		//if round 1 ...
 		if(players[0].cardsCount() == 0) {
 			// ... deal a round of hidden cards
 			for(int i = 0; i < static_cast<int>(players.size()); i++) {
@@ -96,9 +107,9 @@ void FiveCardStud::playRound() {
 
 		}
 
+		// ... deal a round of visible cards
 		for(int i = 0; i < static_cast<int>(players.size()); i++) {
 			Player& player = players[i]; // this player
-			// deal round of visible cards
 			if( player.isBetting() ) {
 				Card card = deck.back();
 				deck.pop_back();
@@ -128,6 +139,12 @@ void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
 	// only allow betting for players that have not folded
 	// players have to bet at least the "round bet"
+
+
+	// for testing, remove as desired
+	for(int i = 0; i < players.size(); i++) {
+		addPot(players[i].ui_getBet(roundBet, minRaise));
+	}
 
 }
 

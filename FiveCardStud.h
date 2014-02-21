@@ -12,8 +12,8 @@
 
 class FiveCardStud
 {
-	static const int PLAYER_STARTING_BANK = 100;
-	static const int ante = 1;
+	static const int PLAYER_STARTING_BANK = 1000;
+	static const int ANTE = 1;
 public:
 	FiveCardStud();
 	~FiveCardStud();
@@ -23,9 +23,7 @@ public:
 	void packUp(); // after a game has finished
 
 private:
-	int getPot() { return pot; } // dollars
-	void emptyPot() { pot = 0; }
-	void addPot(int value) { pot += value * 100; }
+	void addPot(int value) { pot += value; }
 	int nPlayersBetting(); // returns number of players that have not checked
 	
 	// implementable
@@ -49,6 +47,7 @@ private:
 	std::vector<Card> deck;
 
 	int roundBet;
+	int minRaise;
 	int pot;
 };
 

@@ -64,7 +64,7 @@ void clearScreen() {
 	
 }
 
-void Player::ui_requestName() { // prompts the player to input a name, storing it into the local variable
+void Player::ui_requestName() { // prompts the player to input their name
 
 }
 
@@ -91,47 +91,85 @@ void printBettingInstructions(int currentBet, int minRaise) {
 	// TODO: give examples (call, raise 10, 50)
 }
 
+
+// DONE
+int extractNumber(string input) {
+	string numbers;
+	for( int i = 0; i < static_cast<int>(input.size()); i++ ) {
+		char c = input.at(i);
+		if ( isdigit(c) )
+			numbers += c;
+	}
+	return atoi(numbers.c_str());
+}
+
 int Player::ui_getBet(int &currentBet, int &minRaise) { 
 	// asks for a bet, makes sure that the player can bet the set amount according to betting rules,
-	// if the player raises, it must be at least
-	
-	cout << "Player " << name << ", how will you bet?" << endl;
+	// if the player raises, it must be at least the last raised value
+
+	if (bank == 0){
+		cout << "Player " << name << ", ";
+		cout << "you are all in, press Enter\n";
+		return 0;
+	}
 
 	int bet = 0;
-	string input;
 
 	// keywords to check
-	string call("call"), raise("raise"), check("check");
+	string call("call"), raise("raise"), check("check"), fold("fold");
 
 	bool error = false;  // check for errors
 	do{
+
+		cout << "Player " << name << ", how will you bet?" << endl;
+		cout << "Your Bank is " << bank 
+			<< ", current bet is " << (currentBet != 0 ? "$" + to_string(currentBet) : "open");
+		if(minRaise > 0) {
+			cout << ", minimum raise is $" << minRaise;
+		}
+		cout << ".\n";
+
+		string input;
+
 		// get input
-		getline(cin, input, '\n');
+		input.clear();
+		getline(cin, input,'\n');
 
 		// convert to lowercase
 		transform(input.begin(), input.end(), input.begin(), ::tolower);
 		
 
-
-		// TODO: why doesn't this work?
-
-		bet = atoi(input.c_str()); // converts string with numbers to number, returns 0 if no number there
+		bet = extractNumber(input); // converts string with numbers to number, returns 0 if no number there
 
 		// check for arguments and do appropriate action
-		if( input.length() >= call.length() ) {
+		if( input.length() >= 1 ) {
 		
+			// check to see if string contains
 			if (mismatch(call.begin(), call.end(), input.begin()).first == call.end()) {
-				
+				bet = currentBet;
 			} else if (mismatch(raise.begin(), raise.end(), input.begin()).first == raise.end()) {
-
+				// he typed in 'raise 50', real bet is 50 more than current bet
+				bet = currentBet + bet;
 			} else if (mismatch(check.begin(), check.end(), input.begin()).first == check.end()) {
 				bet = 0;
+			} else if (mismatch(fold.begin(), fold.end(), input.begin()).first == fold.end()) {
+				// player folds, stop further processing
+				folded = true;
+				return 0;
+			} else { 
 			}
 
+		} else { // if we made it this far, the user just pushed enter
+			error = true;
 		}
 
-		if(!(bet >= currentBet + minRaise || bet == currentBet)) { // if this is NOT a valid bet
+		if(bet < currentBet + minRaise && bet != currentBet && !(bet >= bank)) { 
+			// if this is an invalid bet (or an 'all in')
 			error = true;
+		}
+
+
+		if (error) {
 			cout << "You can't do that!\n";
 			printBettingInstructions(currentBet, minRaise);
 		}
@@ -149,7 +187,9 @@ int Player::ui_getBet(int &currentBet, int &minRaise) {
 	if (bet >= currentBet)
 		currentBet = bet;
 
-	
+	// empty bank accordingly
+
+	subtractBank(bet);
 
 
 	return bet;
