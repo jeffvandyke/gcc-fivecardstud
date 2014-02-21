@@ -142,8 +142,9 @@ void FiveCardStud::performBetting() {
 
 
 	// for testing, remove as desired
-	for(int i = 0; i < players.size(); i++) {
-		addPot(players[i].ui_getBet(roundBet, minRaise));
+	for(int i = 0; i < static_cast<int>(players.size()); i++) {
+		int playerBet = players[i].ui_getBet(roundBet, minRaise);
+		addPot(playerBet);
 	}
 
 }

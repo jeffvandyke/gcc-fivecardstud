@@ -52,7 +52,7 @@ public:
 	// outputs this character's cards (hiding the hidden one) showing what he looks like to other players
 
 private:
-	void fold() { folded = true; }
+	int getBetInput(int currentBet, int minRaise);
 
 	int id; // should match the index in vector array
 	std::string name;
