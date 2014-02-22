@@ -12,24 +12,27 @@
 
 class FiveCardStud
 {
-	static const int PLAYER_STARTING_BANK = 100;
-	static const int ante = 1;
+	static const int PLAYER_STARTING_BANK = 1000;
+	static const int ANTE = 1;
 public:
 	FiveCardStud();
 	~FiveCardStud();
 	
 	void setup(int nPlayers); //initiates a game with the set number of players
-	void play(); // plays multiple rounds until someone runs out of money
+	void play(); // plays multiple rounds until only one person is left
 	void packUp(); // after a game has finished
-private:
-	int getPot() { return pot; } // dollars
-	void emptyPot() { pot = 0; }
-	void addPot(int value) { pot += value * 100; }
 
+private:
+	void addPot(int value) { pot += value; }
+	int nPlayersBetting(); // returns number of players that have not checked
+	
 	// implementable
 	void playRound(); // runs many times per game, one winner per round, goes through a few betting rounds
-	void performBetting(); // asks for a round of bets, starting from the dealer's left (or next in vector array, first if dealer is last), adding to the pot from player's banks
+	void performBetting(); 
+	// asks for a round of bets from players who can bet
 
+	void rewardRoundWinner(); // finds the round winner and awards him the pot
+	
 	void shuffleDeck();
 
 	// ui functions
@@ -39,9 +42,12 @@ private:
 
 
 	std::vector<Player> players;
-	int dealerId; // contains the index for the player
+	int dealerId; // contains the index for the dealer player
 	//UserInterface ui;
 	std::vector<Card> deck;
+
+	int roundBet;
+	int minRaise;
 	int pot;
 };
 
