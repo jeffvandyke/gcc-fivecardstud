@@ -79,14 +79,14 @@ int Player::ui_getBet(int &currentBet, int &minRaise) {
 	// asks for a bet, makes sure that the player can bet the set amount according to betting rules,
 	// if the player raises, it must be at least the last raised value
 
-	if (folded)
+	if (folded) {
+		cout << name << " has folded.\n";
 		return 0;
+	}
 
 
 	if (bank == 0){
-		cout << "Player " << name << ", ";
-		cout << "you are all in, press Enter\n";
-		cin.get();
+		cout << name << " is all in.\n";
 		return 0;
 	}
 
