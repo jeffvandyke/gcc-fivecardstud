@@ -21,7 +21,7 @@ void FiveCardStud::setup(int nPlayers){
 
 		// prepare the character
 		player.setId(i);
-		player.setName("Player " + std::to_string(i));
+		player.setName("Player " + std::to_string(i+1));
 		
 		// TODO: change after implementation
 		// player.ui_requestName();   
@@ -40,9 +40,8 @@ void FiveCardStud::setup(int nPlayers){
 			deck.push_back(card);
 		}
 	}
-
-	// TODO: change after implementation
-	//shuffleDeck();
+	
+	shuffleDeck();
 
 }
 
@@ -91,9 +90,11 @@ void FiveCardStud::playRound() {
 	minRaise = 0;
 
 	// for each round that we need to deal cards for up to 5 cards... (at least two people still in the round)
+	// TODO - get valid player (i.e. make sure the players you're talking about haven't folded)
 	while(players[0].cardsCount() < 5 && nPlayersBetting() > 1){
 
-		//if round 1 ...
+		//if first deal ...
+		// TODO, same as before
 		if(players[0].cardsCount() == 0) {
 			// ... deal a round of hidden cards
 			for(int i = 0; i < static_cast<int>(players.size()); i++) {
@@ -131,6 +132,8 @@ void FiveCardStud::playRound() {
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
 		players[i].collectCards(deck);
 	}
+
+	shuffleDeck();
 
 }
 

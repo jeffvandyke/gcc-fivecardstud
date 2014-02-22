@@ -30,7 +30,7 @@ int main() {
 		cin >> playAgain;
 		
 		cin.ignore(256,'\n');
-	} while(playAgain == 'y');
+	} while(playAgain == 'y'|| playAgain == 'Y');
 
 	return 0;
 }

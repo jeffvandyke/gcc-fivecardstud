@@ -152,7 +152,6 @@ int Player::getBetInput(int currentBet, int minRaise) {
 		string input;
 
 		// get input
-		input.clear();
 		getline(cin, input);
 
 		// convert to lowercase
@@ -164,7 +163,8 @@ int Player::getBetInput(int currentBet, int minRaise) {
 		// check for arguments and do appropriate action
 		if( input.length() >= 1 ) {
 		
-			// the mismatch snippet check to see if string contains the keyword specified
+			// the mismatch snippet checks to see if string contains the keyword specified
+
 			if (mismatch(s_bet.begin(), s_bet.end(), input.begin()).first == s_bet.end()) {
 				// 'bet 20'
 				// do nothing, bet is correct value
