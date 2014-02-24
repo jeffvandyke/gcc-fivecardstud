@@ -56,6 +56,8 @@ public:
 	// asks for a bet, makes sure that the player can bet the set amount
 	void ui_renderHiddenView(); 
 	// outputs this character's cards (hiding the hidden one) showing what he looks like to other players
+	void ui_renderOwnView();
+	//outputs what each character looks like to himself
 
 private:
 	int getBetInput(int currentBet, int minRaise);
