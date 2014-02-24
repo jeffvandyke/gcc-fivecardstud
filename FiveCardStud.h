@@ -26,8 +26,8 @@ public:
 private:
 	void addPot(int value) { pot += value; }
 	int nPlayersBetting(); // returns number of players that have not checked
-	Player& getBettingPlayer(); // returns a reference to a valid player
-
+	Player& getBettingPlayer(); // returns a reference to a valid betting player
+	Player& getRoundWinner(); // returns a reference to the round winner
 	// implementable
 	void playRound(); // runs many times per game, one winner per round, goes through a few betting rounds
 	void performBetting(); // asks for a round of bets from players who can bet
