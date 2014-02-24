@@ -10,7 +10,7 @@ class Dealer{
 
 public:
 	double getVal(Card[],Card);
-	double getVal(Card[]);
+	double getVal(Card[], int);
 	
 private:
 	int evalCard(Card);

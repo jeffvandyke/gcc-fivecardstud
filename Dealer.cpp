@@ -1,5 +1,6 @@
 #include "Dealer.h"
 #include "Card.h"
+#include <array>
 
 using namespace std;
 
@@ -280,15 +281,16 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 	return handVal;
 }
 
-double Dealer::getVal(Card up[]){
+double Dealer::getVal(Card up[], int size){
 	double value = 0;
 	int type = 0, iD1 = 0, iD2 = 0, iD3 = 0, iD4 = 0;
 	int check = 0;
 	Card sortedHand[4];
 	Card bubbleBuffer;
 
+
 	//hand construction/ sort via bubblesort
-	for (int i = 0; i<3;i++){
+	for (int i = 0; i<size;i++){
 
 		sortedHand[i] = up[i];
 
@@ -297,7 +299,7 @@ double Dealer::getVal(Card up[]){
 
 	do{
 		check = 0;
-		for(int i = 0; i<4; i++){
+		for(int i = 0; i<size-1; i++){
 
 			if(evalCard(sortedHand[i]) < evalCard(sortedHand[i+1])){
 				bubbleBuffer = sortedHand[i];
@@ -305,131 +307,222 @@ double Dealer::getVal(Card up[]){
 				sortedHand[i+1] = bubbleBuffer;
 				check++;
 			}
-
 		}
 	}while(check != 0);
 
+	switch(size){
 
+	case 4:
 
-	do{
-		// four of a kind check
-		for(int i = 2; i<14;i++){
-			check = 0;
-			if(evalCard(sortedHand[0])== i){check++;}
-			if(evalCard(sortedHand[1])== i){check++;}
-			if(evalCard(sortedHand[2])== i){check++;}
-			if(evalCard(sortedHand[3])== i){check++;}
+		do{
+			// four of a kind check
+			for(int i = 2; i<14;i++){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+				if(evalCard(sortedHand[2])== i){check++;}
+				if(evalCard(sortedHand[3])== i){check++;}
 
-			if(check == 4){
-				type = 8;
-				iD1 = i;
+				if(check == 4){
+					type = 8;
+					iD1 = i;
 
-			}
-
-		}
-
-		if(type > 0){ break;}//loop scope break
-
-		// three of a kind check
-
-		for(int i = 2; i<14;i++){
-			check = 0;
-			if(evalCard(sortedHand[0])== i){check++;}
-			if(evalCard(sortedHand[1])== i){check++;}
-			if(evalCard(sortedHand[2])== i){check++;}
-			if(evalCard(sortedHand[3])== i){check++;}
-
-			if(check == 3){
-				type = 4;
-				iD1 = i;
-			}
-		}
-
-		for(int i = 0; i<4; i++){
-			if(type == 4 && evalCard(sortedHand[i]) != iD1){
-				iD2 = evalCard(sortedHand[i]);
-			}
-		}
-
-
-		if(type > 0){break;} // loop scope break
-
-		//two pair check/ Pair Check
-
-		for(int i = 14; i>2;i--){
-			check = 0;
-			if(evalCard(sortedHand[0])== i){check++;}
-			if(evalCard(sortedHand[1])== i){check++;}
-			if(evalCard(sortedHand[2])== i){check++;}
-			if(evalCard(sortedHand[3])== i){check++;}
-
-
-			if(check == 2){
-				iD1 = i;
+				}
 
 			}
-		}
 
-		for(int i = 14; i>2; i--){
-			check = 0;
-			if(evalCard(sortedHand[0])== i && i != iD1){check++;}
-			if(evalCard(sortedHand[1])== i && i != iD1){check++;}
-			if(evalCard(sortedHand[2])== i && i != iD1){check++;}
-			if(evalCard(sortedHand[3])== i && i != iD1){check++;}
+			if(type > 0){ break;}//loop scope break
+
+			// three of a kind check
+
+			for(int i = 2; i<14;i++){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+				if(evalCard(sortedHand[2])== i){check++;}
+				if(evalCard(sortedHand[3])== i){check++;}
+
+				if(check == 3){
+					type = 4;
+					iD1 = i;
+				}
+			}
+
+			for(int i = 0; i<4; i++){
+				if(type == 4 && evalCard(sortedHand[i]) != iD1){
+					iD2 = evalCard(sortedHand[i]);
+				}
+			}
 
 
-			if(check == 2){ // case of two pair
-				iD2 = i;
-				type = 3;
-				for(int i = 0; i<4; i++){ // non pair card id
-					if(evalCard(sortedHand[i]) != (iD1 || iD2)){
-						iD3 = evalCard(sortedHand[i]);
+			if(type > 0){break;} // loop scope break
 
+			//two pair check/ Pair Check
+
+			for(int i = 14; i>2;i--){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+				if(evalCard(sortedHand[2])== i){check++;}
+				if(evalCard(sortedHand[3])== i){check++;}
+
+
+				if(check == 2){
+					iD1 = i;
+
+				}
+			}
+
+			for(int i = 14; i>2; i--){
+				check = 0;
+				if(evalCard(sortedHand[0])== i && i != iD1){check++;}
+				if(evalCard(sortedHand[1])== i && i != iD1){check++;}
+				if(evalCard(sortedHand[2])== i && i != iD1){check++;}
+				if(evalCard(sortedHand[3])== i && i != iD1){check++;}
+
+
+				if(check == 2){ // case of two pair
+					iD2 = i;
+					type = 3;
+					for(int i = 0; i<4; i++){ // non pair card id
+						if(evalCard(sortedHand[i]) != (iD1 || iD2)){
+							iD3 = evalCard(sortedHand[i]);
+
+						}
+					}
+				}
+
+				else{			// case of one pair
+					type = 2;
+					for(int i = 0; i< 4; i++){
+						if(evalCard(sortedHand[i]) != iD1){
+							iD2 = evalCard(sortedHand[i]);
+							break;
+						}
+					}
+
+					for(int i = 0; i<4; i++){ // highest non-pair card 
+						if(evalCard(sortedHand[i]) != iD1){
+							iD2 = evalCard(sortedHand[i]);
+							break;
+						}
+					}
+
+					for(int i = 0; i<4; i++){ // second Highest non-pair card
+						if(evalCard(sortedHand[i]) != (iD1 || iD2)){
+							iD3 = evalCard(sortedHand[i]);
+							break;
+						}
+					}
+
+				}
+			}
+
+			if(type >0){break;} // loop scope break
+
+			// high card eval
+
+			type = 1;
+			iD1 = evalCard(sortedHand[0]);
+			iD2 = evalCard(sortedHand[1]);
+			iD3 = evalCard(sortedHand[2]);
+			iD4 = evalCard(sortedHand[3]);
+
+		}while(type = 0);
+
+	case 3:
+		do{
+
+			// three of a kind check
+
+			for(int i = 2; i<14;i++){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+				if(evalCard(sortedHand[2])== i){check++;}
+
+				if(check == 3){
+					type = 4;
+					iD1 = i;
+				}
+			}
+
+
+			if(type > 0){break;} // loop scope break
+
+			// Pair Check
+
+			for(int i = 14; i>2;i--){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+				if(evalCard(sortedHand[2])== i){check++;}
+
+
+				if(check == 2){
+					iD1 = i;
+					type = 2;
+					for(int i = 0; i< 4; i++){
+						if(evalCard(sortedHand[i]) != iD1){
+							iD2 = evalCard(sortedHand[i]);
+							break;
+						}
 					}
 				}
 			}
 
-			else{			// case of one pair
-				type = 2;
-				for(int i = 0; i< 4; i++){
-					if(evalCard(sortedHand[i]) != iD1){
-						iD2 = evalCard(sortedHand[i]);
-						break;
-					}
-				}
 
-				for(int i = 0; i<4; i++){ // highest non-pair card 
-					if(evalCard(sortedHand[i]) != iD1){
-						iD2 = evalCard(sortedHand[i]);
-						break;
-					}
-				}
+			if(type >0){break;} // loop scope break
 
-				for(int i = 0; i<4; i++){ // second Highest non-pair card
-					if(evalCard(sortedHand[i]) != (iD1 || iD2)){
-						iD3 = evalCard(sortedHand[i]);
-						break;
-					}
-				}
+			// high card eval
 
+			type = 1;
+			iD1 = evalCard(sortedHand[0]);
+			iD2 = evalCard(sortedHand[1]);
+			iD3 = evalCard(sortedHand[2]);
+
+		}while(type = 0);
+
+	case 2:
+		do{
+
+
+			// Pair Check
+
+			for(int i = 14; i>2;i--){
+				check = 0;
+				if(evalCard(sortedHand[0])== i){check++;}
+				if(evalCard(sortedHand[1])== i){check++;}
+
+
+
+				if(check == 2){
+					iD1 = i;
+					type = 2;
+
+				}
 			}
-		}
 
-		if(type >0){break;} // loop scope break
+
+
+			if(type >0){break;} // loop scope break
+
+			// high card eval
+
+			type = 1;
+			iD1 = evalCard(sortedHand[0]);
+			iD2 = evalCard(sortedHand[1]);
+
+		}while(type = 0);
+	case 1:
 
 		// high card eval
 
 		type = 1;
 		iD1 = evalCard(sortedHand[0]);
 		iD2 = evalCard(sortedHand[1]);
-		iD3 = evalCard(sortedHand[2]);
-		iD4 = evalCard(sortedHand[3]);
 
-	}while(type = 0);
-
-
-
-
+	}
 
 	value = (type*1000000) + (iD1*10000) + (iD2*100) + iD3 + (iD4*.01);
 	return value;
