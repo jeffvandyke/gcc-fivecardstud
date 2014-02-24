@@ -27,6 +27,7 @@ public:
 		if (value < bank) {
 			bank -= value; 
 			return value;
+
 		} else {
 			int temp = bank;
 			bank = 0;

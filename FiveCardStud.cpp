@@ -7,7 +7,7 @@ using namespace std;
 
 
 FiveCardStud::FiveCardStud(void) {
-	
+	pot = 0;
 }
 
 
@@ -27,10 +27,10 @@ void FiveCardStud::setup(int nPlayers){
 
 		// prepare the character
 		player.setId(i);
-		player.setName("Player " + std::to_string(i+1));
+		// player.setName("Player " + std::to_string(i+1));
 		
-		// TODO: change after implementation
-		// player.ui_requestName();   
+		
+		player.ui_requestName();   
 		
 		player.setBank(PLAYER_STARTING_BANK);
 
@@ -221,6 +221,9 @@ void FiveCardStud::performBetting() {
 		if(players[pIndex].isBetting()
 			&& nPlayersBetting() > 1)
 		{
+			// display player view
+
+			ui_renderPlayerView(pIndex);
 			int playerBet = players[pIndex].ui_getBet(roundBet, minRaise);
 			addPot(playerBet);
 		}
@@ -259,16 +262,33 @@ void FiveCardStud::shuffleDeck() {
 
 // ui functions
 
+
+
+void clearScreen() {
+	for(int i = 0; i < 800; i++)
+		cout << endl;
+}
+
 void FiveCardStud::ui_renderPlayerView(int playerId) {
-	std::cout << "The pot contains " << pot << std::endl; 
-	players[playerId-1].ui_renderOwnView();  
+	clearScreen();
+	cout << "It's " << players[playerId].getName() << "'s turn, press ENTER" << endl;
+	system("pause");
+	// display ui for this player
+
+	cout << "The pot contains $" << pot << endl; 
 	for(int i = 0; i < nPlayersBetting(); i++){
-		if((playerId-1) != i){
-			std::cout << players[i].getName() << ": \n";
-			players[i].ui_renderHiddenView();
+		if((playerId) != i){
+			if(players[i].isBetting()){
+				cout << players[i].getName() << ": \n";
+				players[i].ui_renderHiddenView();
+				cout << endl;
+			} else {
+				cout << players[i].getName() << " is no longer betting.\n";
+			}
 		}
-		std::cout << "All other players are no longer betting.\n";
 	}
+	players[playerId].ui_renderOwnView(); 
+	cout << endl;
 }
 
 
