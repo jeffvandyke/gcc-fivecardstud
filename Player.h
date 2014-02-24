@@ -23,10 +23,15 @@ public:
 	void setBank(int value) { bank = value; }
 	int getBank() { return bank; }
 	void addBank(int value) { bank += value; }
-	void subtractBank(int value) { 
+	int subtractBank(int value) { 
 		if (value < bank) {
 			bank -= value; 
-		} else { bank = 0; } 
+			return value;
+		} else {
+			int temp = bank;
+			bank = 0;
+			return temp;
+		} 
 	}
 	bool isBroke() { return bank == 0; }
 

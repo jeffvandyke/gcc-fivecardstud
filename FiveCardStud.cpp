@@ -51,7 +51,7 @@ void FiveCardStud::setup(int nPlayers){
 void FiveCardStud::printInstructions(){
 	cout << "Each player is dealt one card face-down and one card face up." << endl
 		<< "Then there will be a round of betting. To bet type fold, check (if current bet = 0), raise #, bet #, # (to raise/bet), or call." << endl
-		<< "There is a minimum entry bet, or ante, of $1." << endl
+		<< "There is a minimum entry bet, or ante, of $" << ANTE << "." << endl
 		<< "The next three rounds will consist of players being dealt one card face-up and a round of betting." << endl
 		<< "For each round of betting the first player to bet will be the player with the highest card showing." << endl
 		<< "At the end of each round the player with the best hand gets the pot." << endl
@@ -131,9 +131,15 @@ Player& FiveCardStud::getRoundWinner() {
 
 void FiveCardStud::playRound() {
 
-	// initialize round
-	roundBet = 0;
+	// initialize round, playing with an ante, so this is the opening bet for anyone playing.
+
+	roundBet = ANTE;
 	minRaise = 0;
+
+	// before the round begins, collect ante from players
+	for(int i = 0; i < static_cast<int>(players.size()); i++){
+		addPot( players[i].subtractBank(ANTE) );
+	}
 
 	// for each round that we need to deal cards for up to 5 cards... (at least two people still in the round)
 	// TODO - get valid player (i.e. make sure the players you're talking about haven't folded)
@@ -190,12 +196,31 @@ void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
 	// only allow betting for players that have not folded
 	// players have to bet at least the "round bet"
+	
+	// the highest - value player goes first in betting
+	int highId = 0;
+	
+	// find the highest value player
+	for (int i = 0; i < static_cast<int>(players.size()); i++) {
+		if (players[i].getVisibleHandValue()
+			> players[highId].getVisibleHandValue()) 
+		{
+			highId = i;
+		}
+	}
 
-
-	// for testing, remove as desired
+	// get bets from players
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
-		int playerBet = players[i].ui_getBet(roundBet, minRaise);
-		addPot(playerBet);
+		// our index needs to cycle around starting at the highId
+
+		int pIndex = (i + highId) % players.size();
+		// skip if they have folded or if there is only one left
+		if(players[pIndex].isBetting()
+			&& nPlayersBetting() > 1)
+		{
+			int playerBet = players[pIndex].ui_getBet(roundBet, minRaise);
+			addPot(playerBet);
+		}
 	}
 
 }
