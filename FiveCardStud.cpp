@@ -1,5 +1,6 @@
 #include "FiveCardStud.h"
 #include "Player.h"
+#include "Dealer.h"
 <<<<<<< HEAD
 =======
 #include <cmath>
