@@ -1,5 +1,7 @@
 #include "Card.h" 
 #include <stdexcept> 
+#include <iostream>
+
 
 string Card::suitName(Suit s) { 
 	switch(s) { 
@@ -28,4 +30,9 @@ string Card::valueName(Value v) {
 	case king: return "King"; 
 	default: throw std::out_of_range("Face value out of range"); 
 	} 
+}
+
+void Card::ui_renderCard(){
+	std::cout << valueName(getValue()) << " of " << suitName(getSuit()) << std::endl;
+
 }

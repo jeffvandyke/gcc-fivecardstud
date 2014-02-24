@@ -1,20 +1,22 @@
 #include "FiveCardStud.h"
 #include "Player.h"
-#include "Dealer.h"
-<<<<<<< HEAD
-=======
 #include <cmath>
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
+#include <iostream>
+#include <time.h>
+using namespace std;
 
 
 FiveCardStud::FiveCardStud(void) {
-	
+	pot = 0;
 }
 
 
 FiveCardStud::~FiveCardStud(void) {
 
 }
+
+
+
 
 void FiveCardStud::setup(int nPlayers){
 
@@ -25,13 +27,10 @@ void FiveCardStud::setup(int nPlayers){
 
 		// prepare the character
 		player.setId(i);
-<<<<<<< HEAD
-=======
-		player.setName("Player " + std::to_string(i));
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
+		// player.setName("Player " + std::to_string(i+1));
 		
-		// TODO: change after implementation
-		// player.ui_requestName();   
+		
+		player.ui_requestName();   
 		
 		player.setBank(PLAYER_STARTING_BANK);
 
@@ -47,9 +46,24 @@ void FiveCardStud::setup(int nPlayers){
 			deck.push_back(card);
 		}
 	}
+	
+	shuffleDeck();
 
-	// TODO: change after implementation
-	//shuffleDeck();
+}
+
+void FiveCardStud::printInstructions(){
+	cout << "Each player is dealt one card face-down and one card face up." << endl
+		<< "Then there will be a round of betting. To bet type fold, check (if current bet = 0), raise #, bet #, # (to raise/bet), or call." << endl
+		<< "There is a minimum entry bet, or ante, of $" << ANTE << "." << endl
+		<< "The next three rounds will consist of players being dealt one card face-up and a round of betting." << endl
+		<< "For each round of betting the first player to bet will be the player with the highest card showing." << endl
+		<< "At the end of each round the player with the best hand gets the pot." << endl
+		<< "Once all players but one have lost their money, the one remaining wins!" << endl;
+	
+	system("PAUSE");
+
+	for(int i=0; i < 200; i++)
+		cout << endl;
 
 }
 
@@ -63,16 +77,15 @@ void FiveCardStud::play() {
 			if( players[i].isBroke() )
 				players.erase(players.begin() + i);
 		}
-<<<<<<< HEAD
-=======
 		// reindex after erasure
 
 		for (int i = 0; i < static_cast<int>(players.size()); i++) {
 			players[i].setId(i);
 		}
 
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
 	} while (players.size() > 1);
+
+	displayFanfare();
 }
 
 // DONE
@@ -81,6 +94,8 @@ void FiveCardStud::packUp() {
 		players[i].collectCards(deck);
 	}
 }
+
+// private:
 
 // DONE
 int FiveCardStud::nPlayersBetting() { 
@@ -92,34 +107,50 @@ int FiveCardStud::nPlayersBetting() {
 	return nBetting;
 }
 
-// private:
+Player& FiveCardStud::getBettingPlayer() {
+	for( int i = 0; i < static_cast<int>(players.size()); i++ ) {
+		if (players[i].isBetting())
+			return players[i];
+	}
+
+	// if no betting players, we shouldn't be calling this function - the code should forbid it
+	throw new exception("no betting players");
+}
+
+Player& FiveCardStud::getRoundWinner() {
+	// find the winner
+
+	Player* winner = &getBettingPlayer();
+	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
+		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
+			) && players[i].isBetting() ) // winner hasn't folded
+		{
+			winner = &players[i];
+		}
+	}
+
+	return *winner;
+}
 
 void FiveCardStud::playRound() {
-<<<<<<< HEAD
-	
-	//deal cards
-	while(players[0].cardsCount() < 5){ // don't deal
 
-		//if first time...
-		if(players[0].cardsCount() == 0) {
-			// ... deal a round of hidden cards
-			for(int i = 0; i < static_cast<int>(players.size()); i++) {
-				
-				Player& player = players[i]; // this player
-				Card card = deck.back();
-				deck.pop_back();
+	// initialize round, playing with an ante, so this is the opening bet for anyone playing.
 
-=======
-
-	// initialize round
-	roundBet = 0;
+	roundBet = ANTE;
 	minRaise = 0;
 
-	// for each round that we need to deal cards for up to 5 cards... (at least two people still in the round)
-	while(players[0].cardsCount() < 5 && nPlayersBetting() > 1){
+	// before the round begins, collect ante from players
+	for(int i = 0; i < static_cast<int>(players.size()); i++){
+		addPot( players[i].subtractBank(ANTE) );
+	}
 
-		//if round 1 ...
-		if(players[0].cardsCount() == 0) {
+	// for each round that we need to deal cards for up to 5 cards... (at least two people still in the round)
+	// TODO - get valid player (i.e. make sure the players you're talking about haven't folded)
+	while(getBettingPlayer().cardsCount() < 5 && nPlayersBetting() > 1){
+
+		//if first deal ...
+		// TODO, same as before
+		if(getBettingPlayer().cardsCount() == 0) {
 			// ... deal a round of hidden cards
 			for(int i = 0; i < static_cast<int>(players.size()); i++) {
 				
@@ -127,24 +158,11 @@ void FiveCardStud::playRound() {
 				Card card = deck.back();
 				deck.pop_back();
 
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
 				player.dealHiddenCard(card);
 			}
 
 		}
 
-<<<<<<< HEAD
-		for(int i = 0; i < static_cast<int>(players.size()); i++) {
-			Player& player = players[i]; // this player
-			// deal round of visible cards
-			Card card = deck.back();
-			deck.pop_back();
-				
-			player.dealVisibleCard(card);
-				
-		}
-
-=======
 		// ... deal a round of visible cards
 		for(int i = 0; i < static_cast<int>(players.size()); i++) {
 			Player& player = players[i]; // this player
@@ -159,7 +177,6 @@ void FiveCardStud::playRound() {
 
 		performBetting();
 		
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
 	}
 
 	// round is over, clean up and prepare for the next round
@@ -171,26 +188,45 @@ void FiveCardStud::playRound() {
 		players[i].collectCards(deck);
 	}
 
+	ui_displayEndOfRound();
+
+	shuffleDeck();
+
 }
 
 
 void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
-<<<<<<< HEAD
-	// only allow betting for players that have not checked
-
-}
-
-void FiveCardStud::shuffleDeck() {
-=======
 	// only allow betting for players that have not folded
 	// players have to bet at least the "round bet"
+	
+	// the highest - value player goes first in betting
+	int highId = 0;
+	
+	// find the highest value player
+	for (int i = 0; i < static_cast<int>(players.size()); i++) {
+		if (players[i].getVisibleHandValue()
+			> players[highId].getVisibleHandValue()) 
+		{
+			highId = i;
+		}
+	}
 
-
-	// for testing, remove as desired
+	// get bets from players
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
-		int playerBet = players[i].ui_getBet(roundBet, minRaise);
-		addPot(playerBet);
+		// our index needs to cycle around starting at the highId
+
+		int pIndex = (i + highId) % players.size();
+		// skip if they have folded or if there is only one left
+		if(players[pIndex].isBetting()
+			&& nPlayersBetting() > 1)
+		{
+			// display player view
+
+			ui_renderPlayerView(pIndex);
+			int playerBet = players[pIndex].ui_getBet(roundBet, minRaise);
+			addPot(playerBet);
+		}
 	}
 
 }
@@ -198,43 +234,87 @@ void FiveCardStud::shuffleDeck() {
 // DONE
 void FiveCardStud::rewardRoundWinner() {
 
-	// find the winner
-
-	Player* winner = &players[0];
-	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
-		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
-			|| winner->hasFolded()
-			) && !players[i].hasFolded() ) // winner hasn't folded
-		{
-			winner = &players[i];
-		}
-	}
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
+	Player winner = getRoundWinner();
 
 	// give the player the pot
-	winner->addBank(pot);
+	winner.addBank(pot);
 	pot = 0;
 }
 
-<<<<<<< HEAD
-// ui functions
-
-void FiveCardStud::ui_renderPlayerView(int playerId) {
-
-=======
 
 void FiveCardStud::shuffleDeck() {
-	
+
+	Card place_hold;
+	srand(time(0));
+
+	for(int k = 1; k < 100010; k++) {
+		for(int i = 0; i < (static_cast<int>(deck.size()) - 1 ); i++) {
+			if(rand() > rand()) {
+				place_hold = deck[i];
+				deck[i] = deck[i+1];
+				deck[i+1] = place_hold;
+			}
+		}
+
+	}
+
 }
 
 // ui functions
 
+
+
+void clearScreen() {
+	for(int i = 0; i < 800; i++)
+		cout << endl;
+}
+
 void FiveCardStud::ui_renderPlayerView(int playerId) {
-	
->>>>>>> 91a91671b579f1506da1a04ae36d5b36e163b4b7
+	clearScreen();
+	cout << "It's " << players[playerId].getName() << "'s turn, press ENTER" << endl;
+	system("pause");
+	// display ui for this player
+
+	cout << "The pot contains $" << pot << endl; 
+	for(int i = 0; i < nPlayersBetting(); i++){
+		if((playerId) != i){
+			if(players[i].isBetting()){
+				cout << players[i].getName() << ": \n";
+				players[i].ui_renderHiddenView();
+				cout << endl;
+			} else {
+				cout << players[i].getName() << " is no longer betting.\n";
+			}
+		}
+	}
+	players[playerId].ui_renderOwnView(); 
+	cout << endl;
 }
 
 
-void FiveCardStud::ui_showWinner(int playerId){
+void FiveCardStud::ui_displayEndOfRound(){
 
+	Player winner = getRoundWinner();
+
+	cout << endl << winner.getName() << " is the winner of this round." << endl << endl;
+
+	for(int i = 0; i <  static_cast<int>(players.size()); i++)
+		cout << players[i].getName() << " has $" << players[i].getBank() << " remaining." << endl;
+
+	cout << endl << endl << endl;
+	system("pause");
+
+
+}
+
+void FiveCardStud::displayFanfare() {
+	for(int i = 0; i < 100; i++) {
+		cout << "0     1          0  1          1    1     1  1     1     0    1"
+			<< "    1     0      1     1     0          1         0      0     0 "
+			<< " 1         0        1        0    1   0        1   1   0  0 1    1  "
+			<< "1     0        0    1    0    1    0       1   0   0   0"
+			<< "         0    1   1     1    0      1      1         1    1    0    0     0  ";
+	}
+
+	cout << endl << "Congratulations: " << players[0].getName() << endl << "You are the victor!" << endl;
 }
