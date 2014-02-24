@@ -244,6 +244,7 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 		}
 		std::cout << "All other players are no longer betting.\n";
 	}
+
 }
 
 
