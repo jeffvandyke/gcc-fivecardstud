@@ -62,12 +62,8 @@ int Player::getVisibleHandValue() { // evaluates who starts betting by looking a
 
 // ui functions
 
-void clearScreen() {
-	
-}
-
 void Player::ui_requestName() { // prompts the player to input their name
-	cout << "Please enter the name by which you would like to be called.\n";
+	cout << "Player, please enter the name by which you would like to be called.\n";
 	cin >> name;
 }
 
@@ -159,7 +155,7 @@ int Player::getBetInput(int currentBet, int minRaise) {
 	do{
 		error = false; // reset
 		cout << "Player " << name << ", how will you bet?" << endl;
-		cout << "Your Bank is " << bank 
+		cout << "Your Bank is $" << bank 
 			<< ", current bet is " << (currentBet != 0 ? "$" + to_string(currentBet) : "open");
 		if(minRaise > 0) {
 			cout << ", minimum raise is $" << minRaise;
