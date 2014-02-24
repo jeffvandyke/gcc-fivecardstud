@@ -287,6 +287,7 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 			}
 		}
 	}
+	cout << "Your information is: \n";
 	players[playerId].ui_renderOwnView(); 
 	cout << endl;
 }
