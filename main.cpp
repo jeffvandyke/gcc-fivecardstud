@@ -3,14 +3,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "Card.h"
 #include "FiveCardStud.h"
 
 using namespace std;
 
 
 int main() {
+	FiveCardStud game;
+	int numPlayers;
+	cout << "Enter number of Players!\n";
+	cin >> numPlayers;
 
+/*
 	FiveCardStud game;
 	
 	char playAgain = 'n';
@@ -30,7 +35,8 @@ int main() {
 		cin >> playAgain;
 		
 		cin.ignore(256,'\n');
-	} while(playAgain == 'y'|| playAgain == 'Y');
+		} while(playAgain == 'y'|| playAgain == 'Y');
+		*/
 
 	return 0;
 }

@@ -12,6 +12,9 @@ FiveCardStud::~FiveCardStud(void) {
 
 }
 
+
+
+
 void FiveCardStud::setup(int nPlayers){
 
 	players.clear();
@@ -180,7 +183,15 @@ void FiveCardStud::shuffleDeck() {
 // ui functions
 
 void FiveCardStud::ui_renderPlayerView(int playerId) {
-	
+	std::cout << "The pot contains " << pot << std::endl; 
+	players[playerId-1].ui_renderOwnView();  
+	for(int i = 0; i < nPlayersBetting(); i++){
+		if((playerId-1) != i){
+			std::cout << players[i].getName() << ": \n";
+			players[i].ui_renderHiddenView();
+		}
+		std::cout << "All other players are no longer betting.\n";
+	}
 }
 
 

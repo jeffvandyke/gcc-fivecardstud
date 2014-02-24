@@ -21,6 +21,8 @@ public:
 	void setup(int nPlayers); //initiates a game with the set number of players
 	void play(); // plays multiple rounds until only one person is left
 	void packUp(); // after a game has finished
+	std::vector<Player> getPlayers();
+	
 
 private:
 	void addPot(int value) { pot += value; }
@@ -31,7 +33,7 @@ private:
 	void performBetting(); 
 	// asks for a round of bets from players who can bet
 
-	void rewardRoundWinner(); // finds the round winner and awards him the pot
+	void rewardRoundWinner(); // finds the round winner and awards him the pidot
 	
 	void shuffleDeck();
 

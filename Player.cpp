@@ -1,7 +1,9 @@
 #include "Player.h"
+#include "FiveCardStud.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
+
 
 using namespace std;
 
@@ -65,8 +67,26 @@ void clearScreen() {
 }
 
 void Player::ui_requestName() { // prompts the player to input their name
-
+	cout << "Please enter the name by which you would like to be called.\n";
+	cin >> name;
 }
+
+
+void Player::ui_renderHiddenView(){
+	cout << "Bank: $" << bank << endl;
+	cout << "Visible cards:\n";
+	for (int i = 0; i < visibleCardsCount; i++){
+		visibleCards[i].ui_renderCard();
+	}
+}
+
+void Player::ui_renderOwnView(){	
+	ui_renderHiddenView();
+	cout << "Hidden card: \n";
+	hiddenCard.ui_renderCard();	
+}
+
+
 
 
 
@@ -117,9 +137,6 @@ int Player::ui_getBet(int &currentBet, int &minRaise) {
 	return bet;
 }
 
-void Player::ui_renderHiddenView() {
-	
-}
 
 
 

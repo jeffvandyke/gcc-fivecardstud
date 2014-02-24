@@ -14,6 +14,7 @@ public:
 		suit(suit), faceValue(faceValue) {} 
 	Suit getSuit() { return suit; } 
 	Value getValue() { return faceValue; } 
+	void ui_renderCard();
 	static string suitName(Suit s); 
 	static string valueName(Value v); 
 	string name() { return valueName(faceValue) + " of " + suitName(suit); 
