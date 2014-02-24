@@ -1,8 +1,9 @@
 #include "Dealer.h"
 #include "Card.h"
 #include <array>
-
+#include <algorithm>
 using namespace std;
+
 
 double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, should be an array of 4 cards. hidden being the player's hidden cards.
 	double handVal = 0;
