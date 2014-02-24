@@ -21,6 +21,7 @@ public:
 	bool isBetting() { return !(folded); }
 	bool hasFolded() { return (folded); }
 	void setBank(int value) { bank = value; }
+	int getBank() { return bank; }
 	void addBank(int value) { bank += value; }
 	void subtractBank(int value) { 
 		if (value < bank) {

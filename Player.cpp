@@ -230,7 +230,7 @@ int Player::getBetInput(int currentBet, int minRaise) {
 
 // DONE
 void printBettingInstructions(int currentBet, int minRaise) {
-	// prints instructions to the screen for betting in the event of a faulty input
+	// prints instructions to the screen for betting
 	cout << "Betting Instructions: \n"
 		<< "To place a bet, your bet must be at least the current round bet for this\n"
 		<< "round, which is $" << currentBet << ". ";
@@ -255,10 +255,8 @@ void printBettingInstructions(int currentBet, int minRaise) {
 }
 
 
-
+// DONE
 int extractNumber(string input) {
-	// returns an integer form of a concatination of any positive numbers in a string
-
 	string numbers;
 	for( int i = 0; i < static_cast<int>(input.size()); i++ ) {
 		char c = input.at(i);

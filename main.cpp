@@ -23,6 +23,7 @@ int main() {
 		cin.ignore(256,'\n');
 
 		game.setup(numberOfPlayers);
+		game.printInstructions();
 		game.play();
 		game.packUp();
 
