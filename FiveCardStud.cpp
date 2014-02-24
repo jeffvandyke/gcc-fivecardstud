@@ -1,5 +1,6 @@
 #include "FiveCardStud.h"
 #include "Player.h"
+#include "Card.h"
 #include <cmath>
 #include <iostream>
 #include <time.h>
@@ -52,8 +53,10 @@ void FiveCardStud::setup(int nPlayers){
 }
 
 void FiveCardStud::printInstructions(){
-	cout << "Each player is dealt one card face-down and one card face up." << endl
-		<< "Then there will be a round of betting. To bet type fold, check (if current bet = 0), raise #, bet #, # (to raise/bet), or call." << endl
+	cout  << endl << endl 
+		<< "Each player is dealt one card face-down and one card face up." << endl
+		<< "Then there will be a round of betting." << endl
+		<< "To bet type fold, check (if current bet = 0), raise #, bet #, # (to raise/bet), or call." << endl
 		<< "There is a minimum entry bet, or ante, of $" << ANTE << "." << endl
 		<< "The next three rounds will consist of players being dealt one card face-up and a round of betting." << endl
 		<< "For each round of betting the first player to bet will be the player with the highest card showing." << endl
