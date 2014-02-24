@@ -109,6 +109,24 @@ Player& FiveCardStud::getBettingPlayer() {
 		if (players[i].isBetting())
 			return players[i];
 	}
+
+	// if no betting players, we shouldn't be calling this function - the code should forbid it
+	throw new exception("no betting players");
+}
+
+Player& FiveCardStud::getRoundWinner() {
+	// find the winner
+
+	Player* winner = &getBettingPlayer();
+	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
+		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
+			) && players[i].isBetting() ) // winner hasn't folded
+		{
+			winner = &players[i];
+		}
+	}
+
+	return *winner;
 }
 
 void FiveCardStud::playRound() {
@@ -185,20 +203,10 @@ void FiveCardStud::performBetting() {
 // DONE
 void FiveCardStud::rewardRoundWinner() {
 
-	// find the winner
-
-	Player* winner = &getBettingPlayer();
-	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
-		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
-			|| winner->hasFolded()
-			) && !players[i].hasFolded() ) // winner hasn't folded
-		{
-			winner = &players[i];
-		}
-	}
+	Player winner = getRoundWinner();
 
 	// give the player the pot
-	winner->addBank(pot);
+	winner.addBank(pot);
 	pot = 0;
 }
 
@@ -208,7 +216,7 @@ void FiveCardStud::shuffleDeck() {
 	Card place_hold;
 	srand(time(0));
 
-	for(int k = 1; k < 10000; k++) {
+	for(int k = 1; k < 100010; k++) {
 		for(int i = 0; i < (static_cast<int>(deck.size()) - 1 ); i++) {
 			if(rand() > rand()) {
 				place_hold = deck[i];
@@ -230,17 +238,9 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 
 void FiveCardStud::ui_displayEndOfRound(){
 
-	Player* winner = &getBettingPlayer();
-	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
-		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
-			|| winner->hasFolded()
-			) && !players[i].hasFolded() ) // winner hasn't folded
-		{
-			winner = &players[i];
-		}
-	}
+	Player winner = getRoundWinner();
 
-	cout << endl << winner->getName() << " is the winner of this round." << endl << endl;
+	cout << endl << winner.getName() << " is the winner of this round." << endl << endl;
 
 	for(int i = 0; i <  static_cast<int>(players.size()); i++)
 		cout << players[i].getName() << " has $" << players[i].getBank() << " remaining." << endl;
