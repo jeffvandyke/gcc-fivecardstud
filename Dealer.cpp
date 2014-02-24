@@ -522,6 +522,8 @@ double Dealer::getVal(Card up[], int size){
 		iD1 = evalCard(sortedHand[0]);
 		iD2 = evalCard(sortedHand[1]);
 
+		
+
 	}
 
 	value = (type*1000000) + (iD1*10000) + (iD2*100) + iD3 + (iD4*.01);
