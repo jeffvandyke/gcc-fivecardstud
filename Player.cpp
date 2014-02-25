@@ -59,6 +59,7 @@ double Player::getVisibleHandValue() { // evaluates who starts betting by lookin
 
 void Player::ui_requestName() { // prompts the player to input their name
 	cout << "Player, please enter the name by which you would like to be called.\n";
+	cin.ignore(256,'\n');
 	getline(cin, name);
 }
 

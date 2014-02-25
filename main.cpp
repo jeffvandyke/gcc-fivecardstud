@@ -20,7 +20,6 @@ int main() {
 		cout << "Enter number of players!" << endl;
 		cin >> numberOfPlayers;
 		
-		// to work with getline
 
 		game.setup(numberOfPlayers);
 		game.printInstructions();
