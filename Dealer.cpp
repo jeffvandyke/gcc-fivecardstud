@@ -57,13 +57,13 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 	}
 
 	// straight check
-	if(	((evalCard(sortedHand[0])-evalCard(sortedHand[1]))== // check for normal straight
-		(evalCard(sortedHand[1])-evalCard(sortedHand[2]))==
-		(evalCard(sortedHand[2])-evalCard(sortedHand[3]))==
+	if(	((evalCard(sortedHand[0])-evalCard(sortedHand[1]))== 1 && // check for normal straight
+		(evalCard(sortedHand[1])-evalCard(sortedHand[2]))== 1 &&
+		(evalCard(sortedHand[2])-evalCard(sortedHand[3]))== 1 &&
 		(evalCard(sortedHand[3])-evalCard(sortedHand[4]))== 1) 
 		||
-		(evalCard(sortedHand[0])-evalCard(sortedHand[1]))== // check for lowest possible straight with ace at bottom.
-		(evalCard(sortedHand[1])-evalCard(sortedHand[2]))==
+		(evalCard(sortedHand[0])-evalCard(sortedHand[1]))== 1 && // check for lowest possible straight with ace at bottom.
+		(evalCard(sortedHand[1])-evalCard(sortedHand[2]))== 1 &&
 		(evalCard(sortedHand[2])-evalCard(sortedHand[3]))== 1 && 
 		(evalCard(sortedHand[3]) - evalCard(sortedHand[4]) == -12)) 
 	{
