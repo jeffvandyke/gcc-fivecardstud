@@ -21,7 +21,6 @@ int main() {
 		cin >> numberOfPlayers;
 		
 		// to work with getline
-		cin.ignore(256,'\n');
 
 		game.setup(numberOfPlayers);
 		game.printInstructions();
@@ -31,7 +30,6 @@ int main() {
 		cout << "Play Again? (y/n)" << endl;
 		cin >> playAgain;
 		
-		cin.ignore(256,'\n');
 		} while(playAgain == 'y'|| playAgain == 'Y');
 		
 

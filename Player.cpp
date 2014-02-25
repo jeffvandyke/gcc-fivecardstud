@@ -73,7 +73,7 @@ void Player::ui_renderHiddenView(){
 
 void Player::ui_renderOwnView(){	
 	ui_renderHiddenView();
-	cout << "Hidden card: \n";
+	cout << endl << "Hidden card: " << endl;
 	hiddenCard.ui_renderCard();	
 }
 
@@ -160,6 +160,7 @@ int Player::getBetInput(int currentBet, int minRaise) {
 		string input;
 
 		// get input
+		cin.ignore(256,'\n');
 		getline(cin, input);
 
 		// convert to lowercase
