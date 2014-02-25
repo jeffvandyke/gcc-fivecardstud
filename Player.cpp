@@ -59,8 +59,8 @@ double Player::getVisibleHandValue() { // evaluates who starts betting by lookin
 
 void Player::ui_requestName() { // prompts the player to input their name
 	cout << "Player, please enter the name by which you would like to be called.\n";
-	cin.ignore(256,'\n');
-	getline(cin, name);
+	cin.sync();
+	getline(cin, name,'\n');
 }
 
 
@@ -165,7 +165,7 @@ int Player::getBetInput(int currentBet, int minRaise) {
 		string input;
 
 		// get input
-		cin.ignore(256,'\n');
+		cin.sync();
 		getline(cin, input);
 
 		// convert to lowercase
