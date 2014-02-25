@@ -59,16 +59,20 @@ double Player::getVisibleHandValue() { // evaluates who starts betting by lookin
 
 void Player::ui_requestName() { // prompts the player to input their name
 	cout << "Player, please enter the name by which you would like to be called.\n";
-	cin >> name;
+	getline(cin, name);
 }
 
 
 void Player::ui_renderHiddenView(){
 	cout << "Bank: $" << bank << endl;
-	cout << "Visible cards:\n";
+	cout << "Visible cards:  ";
 	for (int i = 0; i < visibleCardsCount; i++){
-		visibleCards[i].ui_renderCard();
+		if (i > 0)
+			cout << ", ";
+		visibleCards[i].ui_renderCard();		
 	}
+
+	cout << endl;
 }
 
 void Player::ui_renderOwnView(){	
