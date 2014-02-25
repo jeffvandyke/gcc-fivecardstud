@@ -49,7 +49,10 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 
 	//flush check
 
-	if(sortedHand[0].getSuit() == sortedHand[1].getSuit() == sortedHand[2].getSuit() == sortedHand[3].getSuit() == sortedHand[4].getSuit()){
+	if(sortedHand[0].getSuit() == sortedHand[1].getSuit() &&
+		sortedHand[1].getSuit() == sortedHand[2].getSuit() &&
+		sortedHand[2].getSuit()== sortedHand[3].getSuit() &&
+		sortedHand[3].getSuit() == sortedHand[4].getSuit()){
 		flush = true;
 	}
 
@@ -97,7 +100,7 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 			if(check == 4){
 				type = 8;
 				iD1 = i;
-
+				break;
 			}
 
 		}
@@ -230,7 +233,7 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 				}
 			}
 
-			else{			// case of one pair
+			else if(iD1 >0){			// case of one pair
 				type = 2;
 				for(int i = 0; i< 4; i++){
 					if(evalCard(sortedHand[i]) != iD1){
@@ -275,7 +278,7 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 
 
 
-	}while(type = 0);
+	}while(type == 0);
 
 
 	handVal = (type*1000000) + (iD1*10000) + (iD2*100) + iD3 + (iD4*.01) + (iD5 * .0001);

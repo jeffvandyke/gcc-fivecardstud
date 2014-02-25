@@ -269,11 +269,11 @@ void FiveCardStud::shuffleDeck() {
 	srand(time(0));
 
 	for(int k = 1; k < 10000; k++) {
-		for(int i = 0; i < (static_cast<int>(deck.size()) - 3 ); i++) {
+		for(int i = 0; i < (static_cast<int>(deck.size()) - 1 ); i++) {
 			if(rand() > rand()) {
 				place_hold = deck[i];
-				deck[i] = deck[i+3];
-				deck[i+3] = place_hold;
+				deck[i] = deck[i+1];
+				deck[i+1] = place_hold;
 			}
 		}
 
