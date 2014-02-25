@@ -53,7 +53,7 @@ double Dealer::getVal(Card up[], Card hidden){ // up being the face up cards, sh
 		sortedHand[1].getSuit() == sortedHand[2].getSuit() &&
 		sortedHand[2].getSuit()== sortedHand[3].getSuit() &&
 		sortedHand[3].getSuit() == sortedHand[4].getSuit()){
-		flush = true;
+			flush = true;
 	}
 
 	// straight check
@@ -526,7 +526,7 @@ double Dealer::getVal(Card up[], int size){
 		iD1 = evalCard(sortedHand[0]);
 		iD2 = evalCard(sortedHand[1]);
 
-		
+
 
 	}
 

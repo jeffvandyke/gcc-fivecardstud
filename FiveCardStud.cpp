@@ -29,10 +29,10 @@ void FiveCardStud::setup(int nPlayers){
 		// prepare the character
 		player.setId(i);
 		// player.setName("Player " + std::to_string(i+1));
-		
-		
+
+
 		player.ui_requestName();   
-		
+
 		player.setBank(PLAYER_STARTING_BANK);
 
 		players.push_back(player);
@@ -47,7 +47,7 @@ void FiveCardStud::setup(int nPlayers){
 			deck.push_back(card);
 		}
 	}
-	
+
 	shuffleDeck();
 
 }
@@ -62,7 +62,7 @@ void FiveCardStud::printInstructions(){
 		<< "For each round of betting the first player to bet will be the player with the highest card showing." << endl
 		<< "At the end of each round the player with the best hand gets the pot." << endl
 		<< "Once all players but one have lost their money, the one remaining wins!" << endl;
-	
+
 	system("PAUSE");
 
 	for(int i=0; i < 200; i++)
@@ -171,7 +171,7 @@ void FiveCardStud::playRound() {
 		if(getBettingPlayer().cardsCount() == 0) {
 			// ... deal a round of hidden cards
 			for(int i = 0; i < static_cast<int>(players.size()); i++) {
-				
+
 				Player& player = players[i]; // this player
 				Card card = deck.back();
 				deck.pop_back();
@@ -187,14 +187,14 @@ void FiveCardStud::playRound() {
 			if( player.isBetting() ) {
 				Card card = deck.back();
 				deck.pop_back();
-				
+
 				player.dealVisibleCard(card);
 			}
-				
+
 		}
 
 		performBetting();
-		
+
 	}
 
 	// round is over, clean up and prepare for the next round
@@ -217,14 +217,14 @@ void FiveCardStud::performBetting() {
 	// betting starts with the person with the highest visible card / hand goes first
 	// only allow betting for players that have not folded
 	// players have to bet at least the "round bet"
-	
+
 	// the highest - value player goes first in betting
 	int highId = 0;
-	
+
 	// find the highest value player
 	for (int i = 0; i < static_cast<int>(players.size()); i++) {
 		if (players[i].getVisibleHandValue()
-			> players[highId].getVisibleHandValue()) 
+	> players[highId].getVisibleHandValue()) 
 		{
 			highId = i;
 		}
@@ -316,6 +316,16 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 
 void FiveCardStud::ui_displayEndOfRound(){
 
+	for(int i = 0; i < static_cast<int>(players.size()); i++){
+			if(players[i].isBetting()){
+				cout << players[i].getName() << ": \n";
+				players[i].ui_renderOwnView();
+				cout << endl;
+			} else {
+				cout << players[i].getName() << " is no longer betting.\n";
+			}
+		}
+
 	vector<Player*> winners = getRoundWinners();
 
 	for(int i = 0; i < static_cast<int>(winners.size()); i++) {
@@ -326,7 +336,7 @@ void FiveCardStud::ui_displayEndOfRound(){
 	}
 
 	cout << endl;
-	
+
 	for(int i = 0; i <  static_cast<int>(players.size()); i++)
 		cout << players[i].getName() << " has $" << players[i].getBank() << " remaining." << endl;
 
