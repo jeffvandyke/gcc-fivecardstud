@@ -199,14 +199,14 @@ void FiveCardStud::playRound() {
 
 	// round is over, clean up and prepare for the next round
 
+	ui_displayEndOfRound();
+
 	rewardRoundWinner();
 
 	// collect each player's cards
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
 		players[i].collectCards(deck);
 	}
-
-	ui_displayEndOfRound();
 
 	shuffleDeck();
 
