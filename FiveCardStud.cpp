@@ -129,8 +129,10 @@ vector<Player*> FiveCardStud::getRoundWinners() {
 	winners.push_back(&getBettingPlayer());
 
 	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
+		double value = players[i].getHandValue();
 		if ((players[i].getHandValue() >= winners[0]->getVisibleHandValue() // winner's hand is higher than guess
-			) && players[i].isBetting() ) // winner hasn't folded
+			) && players[i].isBetting()
+			&& getBettingPlayer().getId() != i) // winner hasn't folded
 		{
 			// here, we either add to or replace the winners
 			if( players[i].getHandValue() > winners[0]->getHandValue() ){
@@ -266,12 +268,12 @@ void FiveCardStud::shuffleDeck() {
 	Card place_hold;
 	srand(time(0));
 
-	for(int k = 1; k < 100010; k++) {
-		for(int i = 0; i < (static_cast<int>(deck.size()) - 1 ); i++) {
+	for(int k = 1; k < 10000; k++) {
+		for(int i = 0; i < (static_cast<int>(deck.size()) - 3 ); i++) {
 			if(rand() > rand()) {
 				place_hold = deck[i];
-				deck[i] = deck[i+1];
-				deck[i+1] = place_hold;
+				deck[i] = deck[i+3];
+				deck[i+3] = place_hold;
 			}
 		}
 
