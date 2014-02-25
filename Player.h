@@ -20,6 +20,7 @@ public:
 	void setName(std::string value) { name = value; }
 	bool isBetting() { return !(folded); }
 	bool hasFolded() { return (folded); }
+	void resetFold() { folded = false; }
 	void setBank(int value) { bank = value; }
 	int getBank() { return bank; }
 	void addBank(int value) { bank += value; }

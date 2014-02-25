@@ -56,10 +56,13 @@ void FiveCardStud::printInstructions(){
 	cout  << endl << endl 
 		<< "Each player is dealt one card face-down and one card face up." << endl
 		<< "Then there will be a round of betting." << endl
-		<< "To bet type fold, check (if current bet = 0), raise #, bet #, # (to raise/bet), or call." << endl
+		<< "To bet type fold, check (if current bet = 0), " << endl
+		<< "raise #, bet #, # (to raise/bet), or call." << endl
 		<< "There is a minimum entry bet, or ante, of $" << ANTE << "." << endl
-		<< "The next three rounds will consist of players being dealt one card face-up and a round of betting." << endl
-		<< "For each round of betting the first player to bet will be the player with the highest card showing." << endl
+		<< "The next three rounds will consist of players being" << endl
+		<< "dealt one card face-up and a round of betting." << endl
+		<< "For each round of betting the first player to bet " << endl
+		<< "will be the player with the highest card showing." << endl
 		<< "At the end of each round the player with the best hand gets the pot." << endl
 		<< "Once all players but one have lost their money, the one remaining wins!" << endl;
 
@@ -110,6 +113,8 @@ int FiveCardStud::nPlayersBetting() {
 	return nBetting;
 }
 
+
+
 Player& FiveCardStud::getBettingPlayer() {
 	for( int i = 0; i < static_cast<int>(players.size()); i++ ) {
 		if (players[i].isBetting())
@@ -120,6 +125,8 @@ Player& FiveCardStud::getBettingPlayer() {
 	throw new exception("no betting players");
 }
 
+
+
 vector<Player*> FiveCardStud::getRoundWinners() {
 	// find the winner
 
@@ -129,7 +136,6 @@ vector<Player*> FiveCardStud::getRoundWinners() {
 	winners.push_back(&getBettingPlayer());
 
 	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
-		double value = players[i].getHandValue();
 		if ((players[i].getHandValue() >= winners[0]->getHandValue() // winner's hand is higher than guess
 			) && players[i].isBetting()
 			&& getBettingPlayer().getId() != i) // winner hasn't folded
@@ -150,6 +156,8 @@ vector<Player*> FiveCardStud::getRoundWinners() {
 	return winners;
 }
 
+
+
 void FiveCardStud::playRound() {
 
 	// initialize round, playing with an ante, so this is the opening bet for anyone playing.
@@ -157,8 +165,9 @@ void FiveCardStud::playRound() {
 	roundBet = ANTE;
 	minRaise = 0;
 
-	// before the round begins, collect ante from players
+	// before the round begins, collect ante from players and reset their folds
 	for(int i = 0; i < static_cast<int>(players.size()); i++){
+		players[i].resetFold();
 		addPot( players[i].subtractBank(ANTE) );
 	}
 
