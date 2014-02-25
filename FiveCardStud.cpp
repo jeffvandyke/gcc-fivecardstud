@@ -286,8 +286,8 @@ void FiveCardStud::shuffleDeck() {
 
 
 void clearScreen() {
-	for(int i = 0; i < 800; i++)
-		cout << endl;
+	for(int i = 0; i < 400; i++)
+		cout << "                                        ";
 }
 
 void FiveCardStud::ui_renderPlayerView(int playerId) {
