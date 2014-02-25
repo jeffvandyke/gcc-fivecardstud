@@ -130,7 +130,7 @@ vector<Player*> FiveCardStud::getRoundWinners() {
 
 	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
 		double value = players[i].getHandValue();
-		if ((players[i].getHandValue() >= winners[0]->getVisibleHandValue() // winner's hand is higher than guess
+		if ((players[i].getHandValue() >= winners[0]->getHandValue() // winner's hand is higher than guess
 			) && players[i].isBetting()
 			&& getBettingPlayer().getId() != i) // winner hasn't folded
 		{
@@ -199,14 +199,14 @@ void FiveCardStud::playRound() {
 
 	// round is over, clean up and prepare for the next round
 
+	ui_displayEndOfRound();
+
 	rewardRoundWinner();
 
 	// collect each player's cards
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
 		players[i].collectCards(deck);
 	}
-
-	ui_displayEndOfRound();
 
 	shuffleDeck();
 
