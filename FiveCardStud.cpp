@@ -286,7 +286,10 @@ void FiveCardStud::shuffleDeck() {
 
 
 void clearScreen() {
-	for(int i = 0; i < 300; i++)
+	for(int i = 0; i < 250; i++)
+		cout << endl;
+	cout << "                                                                            ";
+	for(int i = 0; i < 20; i++)
 		cout << endl;
 }
 
@@ -297,7 +300,7 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 	// display ui for this player
 
 	cout << "The pot contains $" << pot << endl; 
-	for(int i = 0; i < nPlayersBetting(); i++){
+	for(int i = 0; i < static_cast<int>(players.size()); i++){
 		if((playerId) != i){
 			if(players[i].isBetting()){
 				cout << players[i].getName() << ": \n";
