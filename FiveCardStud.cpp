@@ -120,19 +120,32 @@ Player& FiveCardStud::getBettingPlayer() {
 	throw new exception("no betting players");
 }
 
-Player& FiveCardStud::getRoundWinner() {
+vector<Player*> FiveCardStud::getRoundWinners() {
 	// find the winner
 
-	Player* winner = &getBettingPlayer();
+	vector<Player*> winners;
+
+	// prefill with a valid player
+	winners.push_back(&getBettingPlayer());
+
 	for( int i = 0; i < static_cast<int>(players.size()); i++ ){
-		if ((players[i].getHandValue() > winner->getVisibleHandValue() // winner's hand is higher than guess
+		if ((players[i].getHandValue() >= winners[0]->getVisibleHandValue() // winner's hand is higher than guess
 			) && players[i].isBetting() ) // winner hasn't folded
 		{
-			winner = &players[i];
+			// here, we either add to or replace the winners
+			if( players[i].getHandValue() > winners[0]->getHandValue() ){
+				winners.clear();
+				winners.push_back(&players[i]);
+			}
+			else
+			{
+				// add another player
+				winners.push_back(&players[i]);
+			}
 		}
 	}
-
-	return *winner;
+	winners.shrink_to_fit();
+	return winners;
 }
 
 void FiveCardStud::playRound() {
@@ -237,11 +250,14 @@ void FiveCardStud::performBetting() {
 // DONE
 void FiveCardStud::rewardRoundWinner() {
 
-	Player winner = getRoundWinner();
+	vector<Player*> winners = getRoundWinners();
 
-	// give the player the pot
-	winner.addBank(pot);
-	pot = 0;
+	// give the winners (usually 1) the pot
+	int nWinners = static_cast<int>(winners.size());
+	for(int i = 0; i < nWinners; i++){
+		winners[i]->addBank(pot / nWinners);
+	}
+	pot = pot % nWinners;
 }
 
 
@@ -298,10 +314,17 @@ void FiveCardStud::ui_renderPlayerView(int playerId) {
 
 void FiveCardStud::ui_displayEndOfRound(){
 
-	Player winner = getRoundWinner();
+	vector<Player*> winners = getRoundWinners();
 
-	cout << endl << winner.getName() << " is the winner of this round." << endl << endl;
+	for(int i = 0; i < static_cast<int>(winners.size()); i++) {
+		cout << endl << winners[i]->getName() << " is ";
+		if(i != 0)
+			cout << "also ";
+		cout << " the winner of this round!" << endl;
+	}
 
+	cout << endl;
+	
 	for(int i = 0; i <  static_cast<int>(players.size()); i++)
 		cout << players[i].getName() << " has $" << players[i].getBank() << " remaining." << endl;
 

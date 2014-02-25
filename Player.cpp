@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "FiveCardStud.h"
+#include "Dealer.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -40,20 +41,14 @@ void maxAssign(int &target, int &source) {
 		target = source;
 }
 
-int Player::getHandValue() { // returns the value of the complete 5 card set 
-	
-	return 0;
+double Player::getHandValue() { // returns the value of the complete 5 card set 
+	return Dealer::getVal(visibleCards, hiddenCard);
 }
 
 
 
-int Player::getVisibleHandValue() { // evaluates who starts betting by looking at the set of 4 or less cards to find value
-	int handValue = 0;
-
-	
-
-
-	return 0;
+double Player::getVisibleHandValue() { // evaluates who starts betting by looking at the set of 4 or less cards to find value
+	return Dealer::getVal(visibleCards, visibleCardsCount);
 }
 
 

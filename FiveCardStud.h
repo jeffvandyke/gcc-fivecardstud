@@ -27,7 +27,7 @@ private:
 	void addPot(int value) { pot += value; }
 	int nPlayersBetting(); // returns number of players that have not checked
 	Player& getBettingPlayer(); // returns a reference to a valid betting player
-	Player& getRoundWinner(); // returns a reference to the round winner
+	std::vector<Player*> getRoundWinners(); // returns a vector of the round winners, usually it will have only 1
 	
 	
 	// implementable
