@@ -286,7 +286,7 @@ void FiveCardStud::shuffleDeck() {
 
 
 void clearScreen() {
-	for(int i = 0; i < 800; i++)
+	for(int i = 0; i < 300; i++)
 		cout << endl;
 }
 
