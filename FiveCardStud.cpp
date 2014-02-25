@@ -198,10 +198,10 @@ void FiveCardStud::playRound() {
 	}
 
 	// round is over, clean up and prepare for the next round
-
+	rewardRoundWinner();
 	ui_displayEndOfRound();
 
-	rewardRoundWinner();
+	
 
 	// collect each player's cards
 	for(int i = 0; i < static_cast<int>(players.size()); i++) {
@@ -286,8 +286,8 @@ void FiveCardStud::shuffleDeck() {
 
 
 void clearScreen() {
-	for(int i = 0; i < 400; i++)
-		cout << "                                        ";
+	for(int i = 0; i < 300; i++)
+		cout << endl;
 }
 
 void FiveCardStud::ui_renderPlayerView(int playerId) {
